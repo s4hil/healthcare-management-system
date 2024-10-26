@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Dashboard</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, <%= user.name %></h1>
+    <a href="/logout" class="btn btn-danger">Logout</a>
+    <h2>Your Appointments</h2>
+    <ul class="list-group">
+      <% appointments.forEach(appointment => { %>
+        <li class="list-group-item">
+          <strong>Date:</strong> <%= appointment.date.toLocaleDateString() %> <strong>Time:</strong> <%= appointment.time %> <strong>Doctor:</strong> <%= appointment.doctor %>
+        </li>
+      <% }); %>
+    </ul>
+    <h2>Upload Documents</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="document" required>
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+    
+    <h2>Uploaded Documents</h2>
+    <h2>Uploaded Documents</h2>
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+        <th>Document Name</th>
+        <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% user.documents.forEach(doc => { %>
+        <tr>
+            <td><%= doc.name %></td>
+            <td>
+            <a href="/download/<%= doc.name %>" class="btn btn-success">Download</a>
+            </td>
+        </tr>
+        <% }); %>
+    </tbody>
+    </table>
+
+    
+    <h2>Schedule Appointment</h2>
+    <a href="/appointment" class="btn btn-primary">Schedule Appointment</a>
+  </div>
+</body>
+</html>
